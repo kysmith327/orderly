@@ -39,8 +39,8 @@ const ReservationNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: '#fff'
             },
-            headerLeft: <Icon
-                name='tree'
+            headerLeft: () => <Icon
+                name='clipboard'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
@@ -52,7 +52,7 @@ const ReservationNavigator = createStackNavigator(
 const DirectoryNavigator = createStackNavigator(
     {
         Directory: { screen: Directory, navigationOptions: ({navigation}) => ({
-            headerLeft: <Icon
+            headerLeft: () => <Icon
                 name='list'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
@@ -88,7 +88,7 @@ const HomeNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: '#fff'
             },
-            headerLeft: <Icon
+            headerLeft: () => <Icon
                 name='home'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
@@ -110,7 +110,7 @@ const AboutNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: '#fff'
             },
-            headerLeft: <Icon
+            headerLeft: () => <Icon
                 name='info-circle'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
@@ -132,7 +132,7 @@ const ContactNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: '#fff'
             },
-            headerLeft: <Icon
+            headerLeft: () => <Icon
                 name='address-card'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
@@ -155,7 +155,7 @@ const FavoritesNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: '#fff'
             },
-            headerLeft: <Icon
+            headerLeft: () => <Icon
                 name='heart'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
@@ -178,7 +178,7 @@ const LoginNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: '#fff'
             },
-            headerLeft: <Icon
+            headerLeft: () => <Icon
                 name='sign-in'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
@@ -198,7 +198,7 @@ const CustomDrawerContentComponent = props => (
                     <Image source={require('./images/logo.png')} style={styles.drawerImage} />
                 </View>
                 <View style={{flex: 2}}>
-                    <Text style={styles.drawerHeaderText}>NuCamp</Text>
+                    <Text style={styles.drawerHeaderText}>Everything{"\n"}On{"\n"}A{"\n"}Stick</Text>
                 </View>
             </View>
             <DrawerItems {...props} />
@@ -237,7 +237,9 @@ const MainNavigator = createDrawerNavigator(
         },
         Directory: {
             screen: DirectoryNavigator,
+            
             navigationOptions: {
+                drawerLabel: 'Menu',
                 drawerIcon: ({tintColor}) => (
                     <Icon
                         name='list'
@@ -251,10 +253,10 @@ const MainNavigator = createDrawerNavigator(
         Reservation: {
             screen: ReservationNavigator,
             navigationOptions: {
-                drawerLabel: 'Reserve Campsite',
+                drawerLabel: 'Make A Reservation',
                 drawerIcon: ({tintColor}) => (
                     <Icon
-                        name='tree'
+                        name='clipboard'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -268,7 +270,7 @@ const MainNavigator = createDrawerNavigator(
                 drawerLabel: 'About Us',
                 drawerIcon: ({tintColor}) => (
                     <Icon
-                        name='info-circle'
+                        name='map'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -282,7 +284,7 @@ const MainNavigator = createDrawerNavigator(
                 drawerLabel: 'Contact Us',
                 drawerIcon: ({tintColor}) => (
                     <Icon
-                        name='address-card'
+                        name='phone'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -293,10 +295,10 @@ const MainNavigator = createDrawerNavigator(
         Favorites: {
             screen: FavoritesNavigator,
             navigationOptions: {
-                drawerLabel: 'My Favorites',
+                drawerLabel: 'My Order',
                 drawerIcon: ({tintColor}) => (
                     <Icon
-                        name='heart'
+                        name='shopping-bag'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -353,16 +355,21 @@ class Main extends Component {
         this.props.fetchPromotions();
         this.props.fetchPartners();
 
-        NetInfo.fetch().then(connectionInfo => {
-            (Platform.OS === 'ios')
-                ? Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
-                : ToastAndroid.show('Initial Network Connectivity Type: ' +
-                    connectionInfo.type, ToastAndroid.LONG);
-        });
+        //this.showNetInfo();
 
-        this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
+        /* this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
             this.handleConnectivityChange(connectionInfo);
-        });
+        }); */
+    }
+
+    showNetInfo = async () => {
+        
+        const connectionInfo = await NetInfo.fetch();
+        (Platform.OS === 'ios')
+            ? Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
+            : ToastAndroid.show('Initial Network Connectivity Type: ' +
+                connectionInfo.type, ToastAndroid.LONG);
+        
     }
 
     componentWillUnmount() {
@@ -389,7 +396,7 @@ class Main extends Component {
             ? Alert.alert('Connection change:', connectionMsg)
             : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
-    
+
     render() {
         return (
             <View style={{

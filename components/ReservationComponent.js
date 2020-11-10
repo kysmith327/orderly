@@ -12,7 +12,7 @@ class Reservation extends Component {
         super(props);
 
         this.state = {
-            campers: 1,
+            guests: 1,
             hikeIn: false,
             date: new Date(),
             showCalendar: false
@@ -20,18 +20,18 @@ class Reservation extends Component {
     }
 
     static navigationOptions = {
-        title: 'Reserve Campsite'
+        title: 'Make a Reservation'
     }
 
     handleReservation() {
 
         const AlertMsg = `
-        Number of Campers: ${this.state.campers} \n
-        Hike In? ${this.state.hikeIn} \n 
+        Number of Guests: ${this.state.guests} \n
+        Outdoors? ${this.state.outdoor} \n 
         Date: ${this.state.date.toLocaleDateString('en-US')}`
         
         Alert.alert(
-            'Begin Search?',
+            'Request Reservation?',
             AlertMsg,
             [
                 {
@@ -55,8 +55,8 @@ class Reservation extends Component {
 
     resetForm() {
         this.setState({
-            campers: 1,
-            hikeIn: false,
+            guests: 1,
+            outdoor: false,
             date: new Date(),
             showCalendar: false
         });
@@ -72,8 +72,8 @@ class Reservation extends Component {
 
             Notifications.scheduleNotificationAsync({
                 content: {
-                    title: 'Your Campsite Reservation Search',
-                    body: `Search for ${date} requested`
+                    title: 'Your Reservation Request',
+                    body: `Your reservation for ${date} has been requested. You will receive an email shortly once your reservation has been approved.`
                 },
                 trigger: null
             });
@@ -94,11 +94,11 @@ class Reservation extends Component {
             <ScrollView>
                 <Animatable.View animation='zoomIn' duration={2000} delay={1000}>
                     <View style={styles.formRow}>
-                        <Text style={styles.formLabel}>Number of Campers</Text>
+                        <Text style={styles.formLabel}>Number of Guests</Text>
                         <Picker
                             style={styles.formItem}
-                            selectedValue={this.state.campers}
-                            onValueChange={itemValue => this.setState({campers: itemValue})}
+                            selectedValue={this.state.guests}
+                            onValueChange={itemValue => this.setState({guests: itemValue})}
                         >
                             <Picker.Item label='1' value='1' />
                             <Picker.Item label='2' value='2' />
@@ -106,15 +106,22 @@ class Reservation extends Component {
                             <Picker.Item label='4' value='4' />
                             <Picker.Item label='5' value='5' />
                             <Picker.Item label='6' value='6' />
+                            <Picker.Item label='7' value='1' />
+                            <Picker.Item label='8' value='2' />
+                            <Picker.Item label='9' value='3' />
+                            <Picker.Item label='10' value='4' />
+                            <Picker.Item label='11' value='5' />
+                            <Picker.Item label='12' value='6' />
+                            
                         </Picker>
                     </View>
                     <View style={styles.formRow}>
-                        <Text style={styles.formLabel}>Hike-In?</Text>
+                        <Text style={styles.formLabel}>Outdoor Seating?</Text>
                         <Switch
                             style={styles.formItem}
-                            value={this.state.hikeIn}
+                            value={this.state.outdoor}
                             trackColor={{true: '#5637DD', false: null}}
-                            onValueChange={value => this.setState({hikeIn: value})}
+                            onValueChange={value => this.setState({outdoor: value})}
                         />
                     </View>
                     <View style={styles.formRow}>
