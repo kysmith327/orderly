@@ -111,7 +111,7 @@ const AboutNavigator = createStackNavigator(
                 color: '#fff'
             },
             headerLeft: () => <Icon
-                name='info-circle'
+                name='map'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
