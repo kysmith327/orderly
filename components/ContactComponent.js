@@ -11,7 +11,7 @@ class Contact extends Component {
 
     sendMail() {
         MailComposer.composeAsync({
-            recipients: ['campsites@nucamp.co'],
+            recipients: ['cedar@sticks.co'],
             subject: 'Inquiry',
             body: 'To whom it may concern:'
         })
@@ -21,12 +21,21 @@ class Contact extends Component {
         return(
             <ScrollView>
                 <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                    <Card title="Today's Location" wrapperStyle={{margin: 20}}>
+                        <Text>Evergreen Community College</Text>
+                        <Text>34 Cedar Drive</Text>
+                        <Text>Everett, WA 98001</Text>
+                        <Text style={{marginBottom: 10}}>U.S.A</Text>
+                        <Text>Phone: 1-425-867-5309</Text>
+                    </Card>
+                </Animatable.View>
+                <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
                     <Card title="Contact Information" wrapperStyle={{margin: 20}}>
-                        <Text>1 Nucamp Way</Text>
+                        <Text>34 Cedar Drive</Text>
                         <Text>Seattle, WA 98001</Text>
                         <Text style={{marginBottom: 10}}>U.S.A</Text>
-                        <Text>Phone: 1-206-555-1234</Text>
-                        <Text>Email: campsites@nucamp.co</Text>
+                        <Text>Phone: 1-425-867-5309</Text>
+                        <Text>Email: cedar@sticks.com</Text>
                         <Button
                             title="Send Email"
                             buttonStyle={{backgroundColor: '#5637DD', margin: 40}}

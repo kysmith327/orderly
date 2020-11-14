@@ -17,7 +17,7 @@ class Directory extends Component {
 
 
     static navigationOptions = {
-        title: 'Directory'
+        title: 'Menu'
     }
 
     render() {

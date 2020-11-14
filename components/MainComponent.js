@@ -133,7 +133,7 @@ const ContactNavigator = createStackNavigator(
                 color: '#fff'
             },
             headerLeft: () => <Icon
-                name='address-card'
+                name='phone'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
@@ -156,7 +156,7 @@ const FavoritesNavigator = createStackNavigator(
                 color: '#fff'
             },
             headerLeft: () => <Icon
-                name='heart'
+                name='shopping-bag'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
